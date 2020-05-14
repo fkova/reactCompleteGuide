@@ -1,63 +1,21 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
+import logo from './logo.svg';
 import './App.css';
-import Person from './Person/Person';
 
-export default () =>{
-  const [showPersons, setShowPersons] = useState(false); 
-  const [persons, setPersons] = useState([
-    { id: '11', name: 'Max', age: 28 },
-    { id: '22', name: 'Manu', age: 29 },
-    { id: '33', name: 'Stephanie', age: 26 }
-  ]);
-  let renderedPersons = null;
-
-  const nameChangedHandler = ( event, id ) => {
-    const personIndex = persons.findIndex(p => p.id === id);
-    const personsCopy = [...persons];
-    const person = { ...persons[personIndex]};
-    person.name = event.target.value;
-    personsCopy[personIndex] = person;
-    setPersons(personsCopy);
-  }
-
-  const deletePersonHandler = (personIndex) => {
-    const personsCopy = [...persons];
-    personsCopy.splice(personIndex, 1);
-    setPersons(personsCopy);
-  }
-
-  const togglePersonsHandler = () => setShowPersons(!showPersons);
-
-  const style = {
-    backgroundColor: 'white',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    cursor: 'pointer'
-  };
-
-  if (showPersons) {
-    renderedPersons = (
-      <div>
-        {persons.map((person, index) => {
-          return <Person
-            click={() => deletePersonHandler(index)}
-            name={person.name} 
-            age={person.age}
-            key={person.id}
-            changed={(event) => nameChangedHandler(event, person.id)} />
-        })}
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h2>Welcome to React</h2>
+        </div>
+        <p className="App-intro">
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
       </div>
     );
-
-    style.backgroundColor = 'green';
   }
-
-  return (
-    <div className="App">
-      <h1>Hi, I'm a React App</h1>
-      <button style={style} onClick={togglePersonsHandler}>Toggle Persons</button>
-      {renderedPersons}
-    </div>
-  );
 }
+
+export default App;
